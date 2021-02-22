@@ -70,55 +70,53 @@ menu = [
 
 # drop down menus for each day
 # 1
-variable = StringVar(root)
-variable.set(menu[0])
+variable1 = StringVar(root)
+variable1.set(menu[0])
 
-w = OptionMenu(root, variable, *menu)
+w = OptionMenu(root, variable1, *menu)
 w.grid(row=3, column=0)
 
 # 2
 variable1 = StringVar(root)
-variable1.set(menu[0])
+variable1.set(menu[1])
 
-w1 = OptionMenu(root, variable, *menu)
+w1 = OptionMenu(root, variable1, *menu)
 w1.grid(row=3, column=1)
 
 # 3
 variable1 = StringVar(root)
 variable1.set(menu[0])
 
-w1 = OptionMenu(root, variable, *menu)
+w1 = OptionMenu(root, variable1, *menu)
 w1.grid(row=3, column=2)
 
 # 4
 variable1 = StringVar(root)
 variable1.set(menu[0])
 
-w1 = OptionMenu(root, variable, *menu)
+w1 = OptionMenu(root, variable1, *menu)
 w1.grid(row=3, column=3)
 
 # 5
 variable1 = StringVar(root)
 variable1.set(menu[0])
 
-w1 = OptionMenu(root, variable, *menu)
+w1 = OptionMenu(root, variable1, *menu)
 w1.grid(row=3, column=4)
 
 # 6
 variable1 = StringVar(root)
 variable1.set(menu[0])
 
-w1 = OptionMenu(root, variable, *menu)
+w1 = OptionMenu(root, variable1, *menu)
 w1.grid(row=3, column=5)
 
 # 7
 variable1 = StringVar(root)
 variable1.set(menu[0])
 
-w1 = OptionMenu(root, variable, *menu)
+w1 = OptionMenu(root, variable1, *menu)
 w1.grid(row=3, column=6)
-
-
 
 
 root.mainloop()
