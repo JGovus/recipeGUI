@@ -62,10 +62,16 @@ my_label1.grid(row=2, column=6, columnspan=1, padx=25, pady=40)
 
 # drop down menu options
 menu = [
-"pizza",
+"Pizza",
 "Asian Chicken and Rice",
 "Chicken and Dumplings",
-"Spaghetti with beef"
+"Spaghetti with beef",
+"Pork Chops",
+"Chicken Wings",
+"Tacos",
+"Breakfast for Dinner",
+"Steak and Potatoes",
+"Ceasar Salad"
 ]
 
 # drop down menus for each day
@@ -117,6 +123,18 @@ variable1.set(menu[0])
 
 w1 = OptionMenu(root, variable1, *menu)
 w1.grid(row=3, column=6)
+
+def fake_command():
+    pass
+
+#define a menu
+my_menu = Menu(root)
+root.config(menu=my_menu)
+
+file_menu = Menu(my_menu)
+my_menu.add_cascade(label='File', menu=file_menu)
+file_menu.add_command(label='New', command=fake_command)
+file_menu.add_command(label='Exit', command=root.quit)
 
 
 root.mainloop()
