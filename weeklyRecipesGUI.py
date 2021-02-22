@@ -14,13 +14,13 @@ my_button = Button(root, text="Ingredients", font=("Times New Roman", 12))
 my_button.grid(row=0, column=2, padx=0)
 
 my_button = Button(root, text="Save Changes", font=("Times New Roman", 12))
-my_button.grid(row=2, column=6, pady=10)
+my_button.grid(row=2, column=6, pady=10, sticky=W)
 
 my_button = Button(root, text="Meal Options", font=("Times New Roman", 12))
-my_button.grid(row=3, column=6, pady=10)
+my_button.grid(row=3, column=6, pady=10, sticky=W)
 
 my_button = Button(root, text="View Shopping Lists", font=("Times New Roman", 12))
-my_button.grid(row=4, column=6, pady=10)
+my_button.grid(row=4, column=6, pady=10, sticky=W)
 
 my_label1 = Label(root, text="Day 1", fg="white", bg="black", font=("Times New Roman", 28))
 my_label1.grid(row=1, column=0, columnspan=1, padx=25)
