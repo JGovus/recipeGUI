@@ -127,10 +127,10 @@ w1.grid(row=3, column=6)
 def fake_command():
     pass
 
-#define a menu
+# define a menu
 my_menu = Menu(root)
 root.config(menu=my_menu)
-
+# Create Menu options
 file_menu = Menu(my_menu)
 my_menu.add_cascade(label='File', menu=file_menu)
 file_menu.add_command(label='New', command=fake_command)
