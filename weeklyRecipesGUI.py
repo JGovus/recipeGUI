@@ -1,8 +1,22 @@
 from tkinter import *
-
 root = Tk()
 root.title("Weekly Recipes w/ Ingredients")
 root.geometry("1200x800")
+
+
+# Ingredient Frame
+def ingredient_frame():
+    ingredient_frame = Frame(root, height=500, width=800, bg="blue", bd=1)
+    ingredient_frame.grid(row=1, column=0, padx=10, columnspan=6)
+
+
+def hide():
+    ingredient_frame.grid_forget()
+
+
+quit_button = Button(ingredient_frame, text="Quit", command=hide())
+quit_button.grid(row=0, column=0)
+
 
 # Top navigating bar buttons
 my_button = Button(root, text="Home", font=("Times New Roman", 12))
@@ -11,7 +25,7 @@ my_button.grid(row=0, column=0, padx=0)
 my_button1 = Button(root, text="Meals", font=("Times New Roman", 12))
 my_button1.grid(row=0, column=1, padx=0)
 
-my_button = Button(root, text="Ingredients", font=("Times New Roman", 12))
+my_button = Button(root, text="Ingredients", font=("Times New Roman", 12), command=ingredient_frame)
 my_button.grid(row=0, column=2, padx=0)
 
 # Week 1-4 buttons
@@ -62,16 +76,16 @@ my_label1.grid(row=2, column=6, columnspan=1, padx=25, pady=40)
 
 # drop down menu options
 menu = [
-"Pizza",
-"Asian Chicken and Rice",
-"Chicken and Dumplings",
-"Spaghetti with beef",
-"Pork Chops",
-"Chicken Wings",
-"Tacos",
-"Breakfast for Dinner",
-"Steak and Potatoes",
-"Ceasar Salad"
+    "Pizza",
+    "Asian Chicken and Rice",
+    "Chicken and Dumplings",
+    "Spaghetti with beef",
+    "Pork Chops",
+    "Chicken Wings",
+    "Tacos",
+    "Breakfast for Dinner",
+    "Steak and Potatoes",
+    "Caesar Salad"
 ]
 
 # drop down menus for each day
@@ -124,8 +138,10 @@ variable1.set(menu[0])
 w1 = OptionMenu(root, variable1, *menu)
 w1.grid(row=3, column=6)
 
+
 def fake_command():
     pass
+
 
 # define a menu
 my_menu = Menu(root)
