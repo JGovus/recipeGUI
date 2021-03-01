@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter import ttk
+from Database import *
+from tkinter import messagebox
 
 root = Tk()
 root.title('Treeview')
@@ -68,6 +70,8 @@ def add_record():
 def remove_one():
     x = treetime.selection()[0]
     treetime.delete(x)
+    response = messagebox.askquestion('Are you sure you want to Delete?', "Do you want to Delete?")
+
 
 def select_record():
     ingredient_box.delete(0, END)

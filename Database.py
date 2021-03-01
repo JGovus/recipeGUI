@@ -1,3 +1,3 @@
 import sqlite3
-conn = sqlite3.connect('Ingredients.db')
+conn = sqlite3.connect('Recipes.db')
 c = conn.cursor()
