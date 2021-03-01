@@ -1,4 +1,5 @@
 from tkinter import *
+from Ingredients import *
 root = Tk()
 root.title("Weekly Recipes w/ Ingredients")
 root.geometry("1200x800")
@@ -10,12 +11,12 @@ def ingredient_frame():
     ingredient_frame.grid(row=1, column=0, padx=10, columnspan=6)
 
 
-def hide():
-    ingredient_frame.grid_forget()
+#def hide():
+ #   ingredient_frame.grid_forget()
 
 
-quit_button = Button(ingredient_frame, text="Quit", command=hide())
-quit_button.grid(row=0, column=0)
+#quit_button = Button(ingredient_frame, text="Quit", command=hide())
+#quit_button.grid(row=0, column=0)
 
 
 # Top navigating bar buttons
@@ -151,6 +152,11 @@ file_menu = Menu(my_menu)
 my_menu.add_cascade(label='File', menu=file_menu)
 file_menu.add_command(label='New', command=fake_command)
 file_menu.add_command(label='Exit', command=root.quit)
+
+
+
+
+
 
 
 root.mainloop()
