@@ -11,34 +11,65 @@ root.geometry("500x600")
 treetime = ttk.Treeview(root)
 
 # Create Column
-treetime["columns"] = ("Ingredient")
+#treetime["columns"] = ("Ingredient")
 
 # Column dimensions
-treetime.column("#0", width=10, minwidth=1)
-treetime.column("Ingredient", width=120, minwidth=25)
+#treetime.column("#0", width=10, minwidth=1)
+#treetime.column("Ingredient", width=120, minwidth=25)
 
 
 
 # Column heading
-treetime.heading("#0", text="", anchor=W)
-treetime.heading("Ingredient", text="Name", anchor=W)
+#treetime.heading("#0", text="", anchor=W)
+#treetime.heading("Ingredient", text="Name", anchor=W)
 
 
 # Create rows
-Row1 = treetime.insert("", 1, text="1", values=("B1","C1"))
+#Row1 = treetime.insert("", 1, text="1", values=("B1","C1"))
 
 
 # Add Data
-data = [
-]
+
+
+def load_treetime():
+    treetime['columns'] = ("ingredient_id", "ingredient_name", "ingredient_type")
+    # Format Columns
+    treetime.column("#0", width=0, stretch=NO)
+    treetime.column("ingredient_id", anchor=W, width=90)
+    treetime.column("ingredient_name", anchor=W, width=200)
+    # Format Headings
+    treetime.heading("#0")
+    treetime.heading("ingredient_id", text="Ingredient ID", anchor=W)
+    treetime.heading("ingredient_name", text="Ingredient Name", anchor=W)
+    # display options
+    treetime['displaycolumns'] = "ingredient_name"  # only display one column - still keeping id column
+    treetime['show'] = "headings"  # this fixes the resize issue
+
+    c.execute("SELECT * from ingredients ORDER BY ingredient_name DESC")
+    ingredients = c.fetchall()
+
+    treetime.grid(row=1, column=0, pady=20, padx=20, rowspan=2)
+
+    count = 0
+    for ingredient in ingredients:
+        treetime.insert(parent='', index='end', iid=count, text="", values=(ingredient[0], ingredient[1]))
+        count += 1
+
+
+def remove_records_treeview():
+    for record in treetime.get_children():
+        treetime.delete(record)
+
+
+load_treetime()
 
 
 # count
 global count
-count=0
-for record in data:
-    treetime.insert(parent='', index='end', iid=count, text="", values=(record[0]))
-    count += 1
+#count=0
+#for record in data:
+    #treetime.insert(parent='', index='end', iid=count, text="", values=(record[0]))
+    #count += 1
 
 
 treetime.pack(pady=20)
@@ -65,33 +96,32 @@ def add_record():
     treetime.insert(parent='', index='end', iid=count, text="", values=(ingredient_box.get()))
     count += 1
 
-    ingredient_box.delete(0, END)
-
     ingredient_name = ingredient_box.get()
     sql = '''INSERT INTO ingredients (ingredient_name)
         VALUES(?)'''
+    print(ingredient_name)
     c.execute(sql, [ingredient_name])
     conn.commit()
-    conn.close_all()
-
-
-def remove_records_treetime():
-    treetime.delete(record)
+    conn.close()
+    ingredient_box.delete(0, END)
+    load_treetime()
 
 
 # delete command
-def remove_one():
-    x = treetime.selection()[0]
+def remove_one(ingredient_id):
+    '''x = treetime.selection()[0]
     treetime.delete(x)
     ingredient_name = ingredient_box.get()
+    print(ingredient_name)'''
     response = messagebox.askquestion('Are you sure you want to Delete?', "Do you want to Delete?")
-    print(ingredient_name, response)
+    print(ingredient_id, response)
     if response == "yes":
         sql = '''DELETE from ingredients WHERE ingredient_id = ?'''
-        c.execute(sql, [ingredient_name])
+        c.execute(sql, [ingredient_id])
         conn.commit()
         conn.close()
-        ingredient_name.delete(0, 'end')
+        ingredient_box.delete(0, 'end')
+    load_treetime()
 
 
 def select_record():
@@ -99,19 +129,26 @@ def select_record():
 
     selected = treetime.focus()
     values = treetime.item(selected, 'values')
+    ingredient_id = values[0]
+    ingredient_box.insert(0, values[1])
 
-    ingredient_box.insert(0, values[0])
+    update_button = Button(root, text="update", command=lambda: update_record(ingredient_id))
+    update_button.grid(column=0, row=1, pady=10)
+
+    delete_button = Button(root, text="delete", command=lambda: remove_one(ingredient_id))
+    delete_button.grid(column=0, row=1, pady=10)
 
 
-def update_record():
-    selected = treetime.focus()
-    treetime.item(selected, text="", values=(ingredient_box.get()))
+def update_record(ingredient_id):
+    #selected = treetime.focus()
+    #treetime.item(selected, text="", values=(ingredient_box.get()))
     ingredient_name = ingredient_box.get()
-    sql = '''UPDATE ingredients SET ingredient_name = ? WHERE designer_id = ?'''
-    c.execute(sql, [ingredient_name])
+    sql = '''UPDATE ingredients SET ingredient_name = ? WHERE ingredient_id = ?'''
+    c.execute(sql, [ingredient_name, ingredient_id])
     conn.commit()
-    conn.close()
     ingredient_box.delete(0, END)
+    remove_records_treeview()
+    load_treetime()
 
 
 # button
@@ -121,11 +158,6 @@ add_record.pack(pady=20)
 select_record = Button(root, text="select", command=select_record)
 select_record.pack(pady=10)
 
-update_record = Button(root, text="update", command=update_record)
-update_record.pack(pady=10)
-
-delete_record = Button(root, text="delete", command=remove_one)
-delete_record.pack(pady=10)
 
 
 root.mainloop()
